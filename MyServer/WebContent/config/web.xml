@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<servlet>
+		<servlet-name>firefly</servlet-name>
+		<servlet-class>Firefly</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>firefly</servlet-name>
+		<url-pattern>/firefly</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<servlet-class>Index</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<servlet-class>Index</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>
