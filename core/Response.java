@@ -56,7 +56,7 @@ public class Response {
             MyLogger.log("Exception", "file static file error: " + e.toString());
             MyLogger.log("Exception", "warning warning warning  do not delete nofileerror.html!!!!");
             responseByte("nofileerror.html", 200);
-            return;// 不能删除 会死循环 后面
+            return;
         }
 
         try {
