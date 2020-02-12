@@ -3,6 +3,7 @@ package core;
 import utils.MyLogger;
 
 import java.io.*;
+import java.net.SocketException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class Response {
             MyLogger.log("Exception", "file static file error: " + e.toString());
             MyLogger.log("Exception", "warning warning warning  do not delete nofileerror.html!!!!");
             responseByte("nofileerror.html", 200);
-            return;// 不能删除 会死循环 后面
+            return; //更新1
         }
 
         try {
@@ -72,9 +73,12 @@ public class Response {
             out.flush();
             forByte.close();
             out.close();
+        } catch(SocketException e){
+            MyLogger.log("Exception:", "response: " + e.toString() + "Socket closed");
+            return;
         } catch (Exception e) {
-            MyLogger.log("Exception:", "response: " + e);
-            MyLogger.log("Exception", "warning warning warning  do not delete nofileerror.html!!!!");
+            MyLogger.log("Exception:", "response: " + e.toString());
+            MyLogger.log("Exception", "warning warning warning  do not delete 500.html!!!!");
             responseByte("nofileerror.html", 500);
         }
     }

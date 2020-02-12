@@ -162,20 +162,40 @@ public class DealFile {
         while (matcher.find()) {
             dealInfo += info.substring(matcher.start() + 6, matcher.end() - 7).replace("\n", " ").replace("\r\n", " ") + "\t";
         }
-        matcher = Pattern.compile("<.{0,10}?>").matcher(dealInfo);
-        while (matcher.find()) {
-            if (matcher.end() < dealInfo.length())
-                dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), " ");
+
+//        Matcher m1 = Pattern.compile("[\\u4E00-\\u9FA5]+").matcher(dealInfo);//匹配中文
+//        String dealInfo1 = "";
+//        while (m1.find()) {
+//            if (m1.end() < dealInfo.length())
+//                dealInfo1 += dealInfo.substring(m1.start(), m1.end()) + "\t";
+//        }
+//
+//        dealInfo = dealInfo1;
+
+//        matcher = Pattern.compile("<.{0,10}?>").matcher(dealInfo);
+//        while (matcher.find()) {
+//            if (matcher.end() < dealInfo.length())
+//                dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), " ");
+//        }
+
+        while(true){
+            matcher = Pattern.compile("<.{0,200}?>").matcher(dealInfo);
+            if(matcher.find() && matcher.end() < dealInfo.length()){
+                    dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), "");
+            }else {
+                break;
+            }
         }
-        matcher = Pattern.compile("<.{0,10}?>").matcher(dealInfo);
-        while (matcher.find()) {
-            if (matcher.end() < dealInfo.length())
-                dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), " ");
-        }
+//        matcher = Pattern.compile("<.{0,10}?>").matcher(dealInfo);
+//        while (matcher.find()) {
+//            if (matcher.end() < dealInfo.length())
+//                dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), " ");
+//        }
         dealInfo = dealInfo.replace("<", "_");
         dealInfo = dealInfo.replace("\"", " ");
-       // logger.log(dealInfo);
+        // logger.log(dealInfo);
         //logger.log(dealInfo);
+        System.out.println(dealInfo);
         Pair<String, String> temp = new Pair<>(fname, dealInfo);
         if (this.dataBasa.get(fileIndex) == null) {
             List<Pair<String, String>> data = new ArrayList<>();
