@@ -16,11 +16,9 @@ public class GenHtml {
     private static String head = "";
     private static String head1 = "";
     private static String leftjs = "";
-    private static String indexBody = "";
-
+    private static String path = GenHtml.class.getClassLoader().getResource("").getPath();
 
     GenHtml() {
-        String path = GenHtml.class.getClassLoader().getResource("").getPath();
         try {
             BufferedReader br = new BufferedReader(new FileReader(path + "blog/source/head.html"));
             String temp = "";
@@ -41,22 +39,29 @@ public class GenHtml {
             }
             br.close();
 
-            br = new BufferedReader(new FileReader(path + "blog/post/index.html"));
-            while ((temp = br.readLine()) != null) {
-                indexBody += temp;
-            }
-            br.close();
-
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     public static String getIndexBody() {
+
+        String indexBody = "";
+        String temp = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path + "blog/post/index.html"));
+            while ((temp = br.readLine()) != null) {
+                indexBody += temp;
+            }
+            br.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         Matcher matcher = Pattern.compile("<body.*?>").matcher(indexBody);
         if (matcher.find() && matcher.end() < indexBody.length()) {
-            final String substring = indexBody.substring(matcher.end(), indexBody.length());
-            return indexBody;
+            final String substring = indexBody.substring(matcher.end());
+            return substring;
         }
         return null;
     }
