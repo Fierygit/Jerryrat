@@ -11,7 +11,7 @@ public class BlogLogger {
     private String info = "";
 
     public void log(String info) {
-        this.info += (info + "\n");
+        this.info += (info + "\r\n");
     }
 
     public String getInfo() {

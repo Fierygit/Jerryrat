@@ -41,8 +41,8 @@ public class DealFile {
             File[] types = file.listFiles();
             List<PostFile> temp = new ArrayList<>();
             // 每一分类
-            for (File type : types) {
-                if (type.isDirectory()) {
+            for (File type : types ) {
+                if (type.isDirectory() && !type.getName().contentEquals(".git")) {
                     PostFile temp_type = new PostFile(type.getName(), true);
                     File[] contents = new File(type.getPath()).listFiles();
                     // 每一篇文章
@@ -82,6 +82,8 @@ public class DealFile {
         file.deaLFiles();
         System.out.println("*********************make the index.html*********************");
         file.makeIndexHtml();
+        System.out.println("*********************make the allblogs.html*********************");
+        file.makeAllBlogs();
         System.out.println("*********************deal over!*********************");
     }
 
@@ -178,11 +180,11 @@ public class DealFile {
 //                dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), " ");
 //        }
 
-        while(true){
+        while (true) {
             matcher = Pattern.compile("<.{0,200}?>").matcher(dealInfo);
-            if(matcher.find() && matcher.end() < dealInfo.length()){
-                    dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), "");
-            }else {
+            if (matcher.find() && matcher.end() < dealInfo.length()) {
+                dealInfo = dealInfo.replace(dealInfo.substring(matcher.start(), matcher.end()), "");
+            } else {
                 break;
             }
         }
@@ -218,7 +220,8 @@ public class DealFile {
         logger.log("\n\n\n*********************make the index.html*********************");
         makeIndexHtml();
         logger.log("\n\n\n*********************deal over!*********************");
-
+        makeAllBlogs();
+        logger.log("*********************make the allblogs.html*********************");
         return logger.getInfo();
     }
 
@@ -271,7 +274,6 @@ public class DealFile {
     }
 
     public void makeIndexHtml() {
-        makeDir(classPath + "WebContent/post");
         String indexHtml = "";
         indexHtml += "<!doctype html>\n" + "<html>" + GenHtml.getHead();
         // 开始 body
@@ -306,8 +308,15 @@ public class DealFile {
             cntp++;
 
         }
-        indexHtml += "    }" + "</script>" + GenHtml.getIndexBody();
+        indexHtml += "    }" + "</script>" ;
 
+        String indexBody =  GenHtml.getIndexBody();
+        Matcher matcher = Pattern.compile("</body>").matcher(indexBody);
+        if (matcher.find()){
+            indexHtml += indexBody.substring(0,matcher.start());
+        }
+        indexHtml += "<div id='write' class='is-node'><p onclick='window.open(\"allblogs.html\")'><strong><span >文章列表</span></strong></p></div>";
+        indexHtml += indexBody.substring(matcher.start(),matcher.end());
         indexHtml = indexHtml.trim();
         try {
             BufferedWriter br = new BufferedWriter(new FileWriter(classPath + "WebContent/index.html"));
@@ -318,6 +327,45 @@ public class DealFile {
         } catch (Exception e) {
             logger.log(e.toString());
         }
+    }
+
+
+    private void makeAllBlogs() {
+        String indexHtml = "";
+        indexHtml += "<!doctype html>\n" + "<html>" + GenHtml.getHead();
+        // 开始 body
+        indexHtml += "<body class='typora-export os-windows'>";
+        indexHtml += "<div  id='write'  class = 'is-node'>";
+
+        int cntp = 1;
+        int cnt = 0;
+        for (String i : this.getTypes()) {
+            if (dataBasa.get(cntp) != null) {
+                int cntpp = 1;
+                for (Pair<String, String> d : dataBasa.get(cntp)) {
+                    indexHtml += "  <p onclick='window.open(\"post/dir" + (cntp + "/file" + cntpp++ + ".html") + "\")'><strong><span >" + cnt++ +" - "+  d.getKey().split("-")[1] + "</span></strong></p>" + "  <hr/>" + "  <p><span>";
+                    indexHtml += d.getValue().length() > 200 ? d.getValue().substring(0, 200) : d.getValue();
+                    indexHtml += "+ </span>" + "</p>" + "<p>&nbsp;</p> \n ";
+                }
+            }
+            cntp++;
+
+        }
+        //生成页尾
+        indexHtml += "   <p><span>@Author: Firefly</span></p>" + "    </div>  ;";
+        indexHtml += "</body></html>";
+        indexHtml = indexHtml.trim();
+        indexHtml = indexHtml.replace("\n","");
+        try {
+            BufferedWriter br = new BufferedWriter(new FileWriter(classPath + "WebContent/allblogs.html"));
+            br.write(indexHtml);
+            br.flush();
+            logger.log("Gen allblogs.html success!!");
+            br.close();
+        } catch (Exception e) {
+            logger.log(e.toString());
+        }
+
     }
 
 
