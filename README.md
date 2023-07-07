@@ -10,7 +10,7 @@
 
 ## 背景
 
-你也许不知道Tomcat，但你一定知道一只叫Tom的cat， tom是大哥，rat是小弟，Jerrycat由此而来！
+有很多框架不好看，决定自己实现一个，锻炼代码能力
 
 ---
 
@@ -82,7 +82,7 @@ servlet麻烦一点，首先配置WebContent/config文件夹下面的web.xml文�
 
 ## 部署服务器
 
-Jerrycat 部署只需要两条命令！！！
+Jerrycat 部署只需要两条命令
 
 首先复制构建文件夹：
 
@@ -156,6 +156,5 @@ Jerryrat 就跑起来了！！！
 
 1. 附加 IOC， AOP， 实现一个基于此服务器的简易Spring  // todo  this holiday
 2. 实现一个ORM 框架， 目标 2020 4月前！
-3. Tom的诙谐幽默，Jerry的聪明才智。
 
 ---
