@@ -96,7 +96,6 @@ Jerrycat 部署只需要两条命令
 
 ![image-20200208181027996](images/image-20200208181027996.png)
 
-Jerryrat 就跑起来了！！！
 
 如果要Jerryrat后台一直跑，请运行  `nohup java MyServer/server/Server &` 
 
@@ -124,9 +123,9 @@ Jerryrat 就跑起来了！！！
 
 ![](https://raw.githubusercontent.com/Fierygit/picbed/master/20200208183225.png)
 
-看最后一句话： success ！
+提示： success ！就可以了
 
-更新blog 只需两部操作， 第一步提交，第二部 调用处理类！
+更新blog 只需两部操作， 第一步提交，第二部 调用处理类。
 
 
 
