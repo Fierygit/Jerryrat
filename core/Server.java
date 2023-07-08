@@ -22,7 +22,7 @@ public class Server {
 
     private ThreadPoolExecutor executor = new MyExecutor().getExecutor();
     private ServerSocket socket;
-    private int port = 8888;
+    private int port = 80;
 
 
     public void start() {

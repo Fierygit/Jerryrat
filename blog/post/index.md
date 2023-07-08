@@ -19,8 +19,8 @@
 
 ![](https://raw.githubusercontent.com/Fierygit/picbed/master/v2-da5c2ac00aa10234ec12eb0422c5dd48.jpg)
 
-![](https://raw.githubusercontent.com/Fierygit/picbed/master/v2-ad960529f9f34a125ae6fca24d3bbc45.jpg)
+![](https://raw.githubusercontent.com/Fierygit//master/v2-ad960529f9f34a125ae6fca24d3bbc45.jpg)
 
 
-暂时没有了！记得有好看的图分享点我！
+^*^
 
